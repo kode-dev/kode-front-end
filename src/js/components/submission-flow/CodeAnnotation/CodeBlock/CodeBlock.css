@@ -1,0 +1,13 @@
+.xnote_line:hover {
+	background-color: yellow;
+}
+
+/*This is required to make empty line divs take up a line visually.*/
+/*https://stackoverflow.com/questions/3416454/how-to-make-an-empty-div-take-space*/
+.xnote_line:after {
+    content: '\200b';
+}
+
+.code-container {
+	cursor: pointer;
+}

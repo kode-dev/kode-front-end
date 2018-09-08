@@ -1,0 +1,62 @@
+.container {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+.row { 
+    margin: 0px;
+}
+
+.landing-navbar {
+	position: static;
+    padding: 0 15px 0;
+}
+
+.landing-navbar .navbar-link {
+    margin-left: 25px;
+}
+
+.landing-container {
+	color: #3a3a3a;
+	background-color: #fff;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+section {
+    padding: 12vh 0 20vh;
+    position: relative;
+}
+
+.title {
+	font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+    font-size: 60px;
+    line-height: 1;
+    font-weight: bold;
+    letter-spacing: -.02em;
+    -webkit-font-smoothing: antialiased;
+    text-align: center;
+}
+
+.caption-font {
+    font-family: "Open Sans",Verdana,Arial,Helvetica,sans-serif;
+    font-size: 16px;
+    line-height: 1.6875;
+    font-weight: normal;
+    letter-spacing: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+.caption {
+	text-align: center;
+}
+
+.button-panel {
+	text-align: center;
+	margin-top: 36px;
+	margin-bottom: 36px;
+	font-size: 24px;
+}

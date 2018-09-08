@@ -1,0 +1,17 @@
+.code-container {
+  float: left;
+  width: 70%;
+}
+
+.note-container {
+  width: 30%;
+}
+
+.code-annotation-container {
+  overflow: hidden;
+}
+
+pre {
+	padding: 0px;
+	border: none;
+}

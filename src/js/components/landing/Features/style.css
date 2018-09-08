@@ -1,0 +1,27 @@
+.feat-row {
+	padding: 10vh 0 10vh;
+}
+
+.feat-col {
+	padding: 0 10vh;
+}
+
+.left-feat {
+	width: 400;
+	width: 50%;
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+}
+
+.right-feat {
+
+}
+
+.features {
+	text-align: left;
+}
+
+.explanation {
+	padding: 5vh 5vh;
+}

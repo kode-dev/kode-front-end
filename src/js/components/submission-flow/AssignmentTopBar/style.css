@@ -1,0 +1,9 @@
+.assignment-top-bar {
+  padding-bottom: 10px;
+  border-bottom: 1px solid gray;
+}
+
+.btn-selected {
+  background-color: #d3d3d3;
+  border: 1px solid #d3d3d3;
+}
