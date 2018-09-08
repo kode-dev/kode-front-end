@@ -1,0 +1,24 @@
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    padding: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.progress {
+	display: inline-block;
+	margin-bottom: 0px;
+	width: 50%;
+	margin-right: 5px;
+}
+
+.score-line {
+	margin-bottom: 20px;
+}
+
+.report {
+	padding-left: 20%;
+	padding-right: 20%;
+}

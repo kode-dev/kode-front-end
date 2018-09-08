@@ -1,0 +1,147 @@
+@import "configs/color";
+
+.owner-container {
+	margin-top: 100px;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+	font-weight: 400;
+}
+
+p {
+	margin: 0px;
+}
+
+h3 {
+	margin-top: 30px;
+}
+
+h2 {
+	font-weight: 900;
+}
+
+body {
+	color: #212121;
+	font-size: 16px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	/*background-color: rgb(251,251,251)*/
+	background-color: #fff;
+}
+
+button {
+	outline: none;
+}
+
+.note-block {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 16px;
+	border: 1px solid #d3d3d3
+}
+
+.view-note {
+	font-size: 16px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	border: 1px solid #d3d3d3
+}
+
+.view-note .public-DraftEditor-content {
+	padding: 0px;
+}
+
+.note-panel {
+	float: right;
+}
+
+.note-block-panel {
+	text-align: right;
+	padding-bottom: 10px;
+	padding-right: 5px;
+}
+
+.assignment-top-bar {
+	margin-bottom: 15px;
+}
+
+p {
+	color: #4A4A4A ;
+}
+
+input, span {
+	color: #4A4A4A;
+}
+
+.card {
+	background-color: white;
+}
+
+.error-container {
+	border: 1px solid red;
+}
+
+.error {
+	color: red;
+}
+
+.label-caption {
+	margin-bottom: 8px;
+}
+
+
+.secondary-font-color {
+	color: #4A4A4A;
+}
+
+.form-control {
+	font-size: 100%;
+}
+
+.btn-link {
+	padding: 0px;
+}
+
+.colored-gray {
+
+}
+
+.btn {
+	border-radius: 0px;
+	border: 0px;
+	font-size: 100%;
+	outline: none;
+}
+
+.btn-primary {
+	color: white;
+	background-color: #00cc00;
+	border: 1px solid #00cc00;
+}
+
+.btn-primary:hover {
+	background-color: #009900;
+}
+
+.btn-default {
+	color: #4A4A4A;
+	border: 1px solid #d3d3d3;
+}
+
+.ancillary-font-color {
+	color: #737373;
+}
+
+.badge {
+	border-radius: 4px;
+}
+
+.form-control {
+	border: none;
+	border-radius: 0px;
+}
+
+.navbar-default {
+	border: none;
+}
+
+.text-centered {
+	text-align: center;
+}
