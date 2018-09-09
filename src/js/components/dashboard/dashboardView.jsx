@@ -28,20 +28,21 @@ class DashboardView extends Component {
     }
 
     renderTable() {
-        if (!this.props.candidates || this.props.candidates.isEmpty()) {
-            return (
-                <div className='no-candidate-splash'>
-                    No Data
-                </div>
-            );
-        }
 
         let candidates = this.props.candidates;
-        if (this.state.filter && this.state.filter.trim()) {
+        if (candidates && this.state.filter && this.state.filter.trim()) {
             candidates = candidates.filter((candidate) => 
                 _.includes(candidate.get('firstName'), this.state.filter) ||
                 _.includes(candidate.get('lastName'), this.state.filter) ||
                 _.includes(candidate.get('email'), this.state.filter)
+            );
+        }
+
+        if (!candidates || candidates.isEmpty()) {
+            return (
+                <div className='no-candidate-splash'>
+                    No Data
+                </div>
             );
         }
 
