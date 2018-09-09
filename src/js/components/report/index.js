@@ -70,8 +70,6 @@ class Report extends Component {
         )
     )
 
-   console.log("report!")
-
     return (
       <div className="report">
           <h2>Assessment Report</h2>

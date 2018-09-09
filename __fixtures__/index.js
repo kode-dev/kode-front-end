@@ -1,15 +1,21 @@
 export const kodeMockData = {
+	organization: {
+		id: 'test-org',
+		name: 'Salesforce-IT'
+	},
 
 	user: {
+		organization: 'test-org'		
 		firstName: 'John',
 		lastName: 'Appleseed',
-		email: 'john@poop.com'
+		email: 'john@poop.com',
 	},
 
     candidate: {
+      	organization: 'test-org'
         firstName: "Nguyen",
         lastName: "Jin",
-        email: "abc@poop.com"
+        email: "abc@poop.com",
     },
 
 	assessment: {
@@ -19,6 +25,7 @@ export const kodeMockData = {
 	}
 
 	appointment: {
+		organization: 'test-org'
 		id: '234',
 		candidate: "abc@poop.com",
 		assessment: 'abcAssessment',
