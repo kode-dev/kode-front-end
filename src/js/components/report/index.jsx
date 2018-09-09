@@ -5,6 +5,8 @@ import { Row, Col } from 'react-bootstrap'
 
 import ScoreLine from './ScoreLine'
 
+import Navbar from 'commonComponents/navbar'
+
 class Report extends Component {
   render() {
     let report = {
@@ -71,33 +73,36 @@ class Report extends Component {
     )
 
     return (
-      <div className="report">
-          <h2>Assessment Report</h2>
-          <div className="card">
-              <Row> 
-                  <Col className="feat-col" xs={12} md={6}>
-                      <p><b>Candidate</b></p>
-                      <p>{report.candidate.firstName + ' ' + report.candidate.lastName}</p>
-                  </Col>
-                  <Col className="feat-col" xs={12} md={6}>
-                      <p>Screened on:</p>
-                      <p>{report.appointment.start}</p>
-                  </Col>
-              </Row>
-          </div>
-          <h3>Communication</h3>
-          <div className="card">
-              {communicationScores}
-          </div>
-          <h3>Technical</h3>
-          <div className="card">
-              {technicalScores}
-          </div>
-          <h3>References</h3>
-          <div className="card">
-              <p><a href="https://github.com">Candidate submission repository</a></p>
-              <p><a href="https://github.com">Interview chat log</a></p>
-          </div>
+      <div>
+        <Navbar />
+        <div className="report">
+            <h2>Assessment Report</h2>
+            <div className="card">
+                <Row> 
+                    <Col className="feat-col" xs={12} md={6}>
+                        <p><b>Candidate</b></p>
+                        <p>{report.candidate.firstName + ' ' + report.candidate.lastName}</p>
+                    </Col>
+                    <Col className="feat-col" xs={12} md={6}>
+                        <p>Screened on:</p>
+                        <p>{report.appointment.start}</p>
+                    </Col>
+                </Row>
+            </div>
+            <h3>Communication</h3>
+            <div className="card">
+                {communicationScores}
+            </div>
+            <h3>Technical</h3>
+            <div className="card">
+                {technicalScores}
+            </div>
+            <h3>References</h3>
+            <div className="card">
+                <p><a href="https://github.com">Candidate submission repository</a></p>
+                <p><a href="https://github.com">Interview chat log</a></p>
+            </div>
+        </div>
       </div>
     );
   }
