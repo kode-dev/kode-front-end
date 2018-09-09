@@ -28,35 +28,25 @@ class DashboardView extends Component {
     }
 
     renderTable() {
-
         let candidates = this.props.candidates;
-        if (candidates && this.state.filter && this.state.filter.trim()) {
-            candidates = candidates.filter((candidate) => 
-                _.includes(candidate.get('firstName'), this.state.filter) ||
-                _.includes(candidate.get('lastName'), this.state.filter) ||
-                _.includes(candidate.get('email'), this.state.filter)
-            );
-        }
+        let contents;
 
         if (!candidates || candidates.isEmpty()) {
-            return (
+            contents = (
                 <div className='no-candidate-splash'>
                     No Data
                 </div>
             );
-        }
+        } else {
+            if (candidates && this.state.filter && this.state.filter.trim()) {
+                candidates = candidates.filter((candidate) => 
+                    _.includes(candidate.get('firstName'), this.state.filter) ||
+                    _.includes(candidate.get('lastName'), this.state.filter) ||
+                    _.includes(candidate.get('email'), this.state.filter)
+                );
+            }
 
-        return (
-            <div className='submission-container'>
-                <form>
-                    <InputField
-                        id='filterCandidates'
-                        type='text'
-                        placeholder={'Filter Candidates'}
-                        value={this.state.filter}
-                        onChange={(e) => this.setState({filter: e.target.value})}
-                    />
-                </form>
+            contents = (
                 <Table 
                     responsive 
                     condensed
@@ -72,6 +62,20 @@ class DashboardView extends Component {
                         {_.map(candidates.toJS(), this.renderRow)}
                     </tbody>
                 </Table>
+            );
+        }
+        return (
+            <div className='submission-container'>
+                <form>
+                    <InputField
+                        id='filterCandidates'
+                        type='text'
+                        placeholder={'Filter Candidates'}
+                        value={this.state.filter}
+                        onChange={(e) => this.setState({filter: e.target.value})}
+                    />
+                </form>
+                {contents}
             </div>
         );
     }
