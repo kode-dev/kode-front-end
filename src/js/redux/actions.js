@@ -1,7 +1,14 @@
 const actions = {
 	candidate: {
 		list: {
-			GET_CANDIDATES: "GET_CANDIDATES"
+			FETCH_CANDIDATES: 'GET_CANDIDATES',
+			ADD_CANDIDATE: 'ADD_CANDIDATE'
+		},
+		detail: {}
+	},
+	assessment: {
+		list: {
+			FETCH_ASSESSMENTS: 'GET_ASSESSMENTS'
 		},
 		detail: {}
 	},

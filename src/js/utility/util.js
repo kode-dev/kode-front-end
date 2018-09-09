@@ -30,7 +30,7 @@ export function getHumanReadableTime(datetimeString) {
 export function createAsyncAction (type, fn) {
   return (...args) => async(dispatch, getState) => {
     dispatch({
-      type: `${type}_STARTED`,
+      type: type,
       payload: args
     });
     let result;
@@ -38,14 +38,14 @@ export function createAsyncAction (type, fn) {
       result = await fn(...args);
     } catch (error) {
       dispatch({
-        type: `${type}_FAILED`,
+        type: `${type}_ERROR`,
         error: true,
         payload: error
       });
       throw error;
     }
     dispatch({
-      type: `${type}_ENDED`,
+      type: `${type}_SUCCESS`,
       payload: result
     });
     return result;

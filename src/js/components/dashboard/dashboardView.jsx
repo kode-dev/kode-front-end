@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import { Table } from 'react-bootstrap';
 import _ from 'lodash';
-import NewCandidateModal from './newCandidateModal'
+import NewCandidateModal from './newCandidateModal';
+import LoadingSpinner from 'commonComponents/loadingSpinner';
 
 class DashboardView extends Component {
 
@@ -17,9 +18,8 @@ class DashboardView extends Component {
     },
 
     renderTable() {
-        if (!this.props.candidates || (this.props.candidates.length == 0)) {
-            return (
-                <div>
+        if (!this.props.candidates || this.props.candidates.isEmpty()) {
+                <div className='no-candidate-splash'>
                     No Data
                 </div>
             );
@@ -37,7 +37,7 @@ class DashboardView extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {_.map(this.props.candidates, renderRow(candidate))}
+                    {_.map(this.props.candidates.toJS(), renderRow(candidate))}
                 </tbody>
             </Table>
         );
@@ -60,7 +60,33 @@ class DashboardView extends Component {
         });
     },
 
+    handleSubmit(candidate) {
+
+        this.props.addCandidate(candidate);
+        // TODO: Temporary
+        this.setState({
+            newCandidateModal: false
+        });
+    },
+
+    renderModal() {
+        return (
+            <NewCandidateModal
+                assessments={this.props.assessments}
+                onSubmit={this.handleSubmit}
+            >
+                +New
+            </NewCandidateModal>
+        );
+    },
+
     render() {
+        if (this.props.fetchingCandidates) {
+            return (
+                <LoadingSpinner />
+            );
+        }
+
         return (
             <div className='submission-container'>
                 {this.renderHeader()}

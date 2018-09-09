@@ -4,15 +4,12 @@ import DashboardApi from 'api/dashboardApi';
 import Actions from '../actions';
 
 import _ from 'lodash'
+import Immutable, { Map, List } from 'immutable';
 
-import { SET_ASSIGN_TO_CANDIDATE_MODAL_VISIBILITY } from 'constants'
-
-export const setAssignToCandidateModalVisibility = createAction(SET_ASSIGN_TO_CANDIDATE_MODAL_VISIBILITY, (isVisible) => (isVisible))
-
-export const assignToCandidate = createAsyncAction(
-	Actions.candidate.list.GET_CANDIDATES,
+export const fetchCandidates = createAsyncAction(
+	Actions.candidate.list.FETCH_ASSESSMENTS,
 	() => {
-		return DashboardApi.getCandidates().then(
+		return DashboardApi.getCandidateList().then(
 			response => {
 				if (response.error) {
 					return null;
@@ -23,31 +20,67 @@ export const assignToCandidate = createAsyncAction(
 			}
 		)
 	}
-)
+);
+
+export const addCandidate = createAsyncAction(
+	Actions.candidate.list.ADD_CANDIDATE,
+	() => {
+		return DashboardApi.addCandidate().then(
+			response => {
+				if (response.error) {
+					return null;
+				}
+				return response;
+			}, error => {
+				throw error;
+			}
+		)
+	}
+);
+
 export const actions = {
-  assignToCandidate,
-  setAssignToCandidateModalVisibility
+  fetchCandidates,
+  addCandidate
 };
 
 export const reducers = {
-	[Actions.candidate.list.GET_CANDIDATES + '_STARTED']: (state, { payload }) => {
+	[Actions.candidate.list.FETCH_ASSESSMENTS]: (state, { payload }) => {
 	    return {
 			...state,
-			fetching: true,
-	    }
+			fetchingCandidates: true
+	    };
 	},
-	[Actions.candidate.list.GET_CANDIDATES]: (state, { payload }) => {
+	[Actions.candidate.list.FETCH_ASSESSMENTS + '_SUCCESS']: (state, { payload }) => {
 		return {
 			...state,
 			candidates: payload,
-			fetching: false,
+			fetchingCandidates: false
+	    };
+	},
+	[Actions.candidate.list.FETCH_ASSESSMENTS + '_ERROR']: (state, { payload }) => {
+		return {
+			...state,
+			candidates: Immutable.fromJS(payload),
+			fetchingCandidates: false
+	    };
+	},
+	[Actions.candidate.list.ADD_CANDIDATE]: (state, { payload }) => {
+	    return state;
+	},
+	[Actions.candidate.list.ADD_CANDIDATE + '_SUCCESS']: (state, { payload }) => {
+		return {
+			...state,
+			candidates: candidates.unshift(payload);
 	    }
+	},
+	[Actions.candidate.list.ADD_CANDIDATE + '_ERROR']: (state, { payload }) => {
+		return state;
 	}
 };
 
 export const initialState = {
-	candidates: [],
-	fetching: false
+	candidates: new List(),
+	fetchingCandidates: false
 };
 
 export default handleActions(reducers, initialState);
