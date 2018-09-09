@@ -70,7 +70,7 @@ export const reducers = {
 	[Actions.candidate.list.ADD_CANDIDATE + '_SUCCESS']: (state, { payload }) => {
 		return {
 			...state,
-			candidates: candidates.unshift(payload);
+			candidates: candidates.unshift(payload)
 	    }
 	},
 	[Actions.candidate.list.ADD_CANDIDATE + '_ERROR']: (state, { payload }) => {

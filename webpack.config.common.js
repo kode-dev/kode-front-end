@@ -144,7 +144,11 @@ export default {
       utility: path.resolve(__dirname, 'src/js/utility'),
       style: path.resolve(__dirname, 'src/style'),
       images: path.resolve(__dirname, 'src/assets'),
-      constants: path.resolve(__dirname, 'src/js/constants')
+      constants: path.resolve(__dirname, 'src/js/constants'),
+      views: path.resolve(__dirname, 'src/js/views'),
+      actions: path.resolve(__dirname, 'src/js/redux/actions'),
+      selectors: path.resolve(__dirname, 'src/js/redux/selectors'),
+      reducers: path.resolve(__dirname, 'src/js/redux/reducers')
     }
   },
   plugins: [

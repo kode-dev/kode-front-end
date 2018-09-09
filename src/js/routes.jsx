@@ -6,6 +6,7 @@ import {
 
 import Landing from 'components/landing'
 import Report from 'components/report'
+import Dashboard from 'views/dashboard'
 
 import '../style/index.css'
 
@@ -15,7 +16,8 @@ import '../style/index.css'
 module.exports = (
   <div className="container">
       <Switch>
-        <Route path="/" component={Report} />
+        <Route path="/report" component={Report} />
+        <Route path="/" component={Dashboard} />
       </Switch>
   </div>
 );

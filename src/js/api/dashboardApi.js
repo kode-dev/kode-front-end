@@ -7,7 +7,7 @@ class DashboardApi {
             credentials: 'include'
         })
         return fetchResponse(request)
-    },
+    }
 
     static getCandidateList(assignment) {
         const request = new Request(getBaseUrl() + `candidates`, {
@@ -15,7 +15,7 @@ class DashboardApi {
             credentials: 'include'
         })
         return fetchResponse(request)
-    },
+    }
 
     static addCandidate(candidate) {
         const request = new Request(getBaseUrl() + `candidates`, {

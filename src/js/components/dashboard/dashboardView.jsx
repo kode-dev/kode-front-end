@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import _ from 'lodash';
 import NewCandidateModal from './newCandidateModal';
 import LoadingSpinner from 'commonComponents/loadingSpinner';
 
 class DashboardView extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
     componentWillMount() {
         this.props.fetchCandidates();
-    },
+    }
 
     renderRow(candidate) {
         return (
@@ -19,15 +24,17 @@ class DashboardView extends Component {
                 <td>{candidate.status}</td>
             </tr>
         );
-    },
+    }
 
     renderTable() {
         if (!this.props.candidates || this.props.candidates.isEmpty()) {
+            return (
                 <div className='no-candidate-splash'>
                     No Data
                 </div>
             );
         }
+
         return (
             <Table 
                 responsive 
@@ -41,48 +48,49 @@ class DashboardView extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {_.map(this.props.candidates.toJS(), renderRow(candidate))}
+                    {_.map(this.props.candidates.toJS(), this.renderRow)}
                 </tbody>
             </Table>
         );
-    },
+    }
 
     renderHeader() {
         return (
             <Button
                 bsStyle='success'
-                onClick={this.handleNew}
+                onClick={this.handleNew.bind(this)}
             >
                 +New
             </Button>
         );
-    },
+    }
 
     handleNew() {
         this.setState({
-            newCandidateModal: true
+            newCandidateModalOpen: true
         });
-    },
+    }
 
     handleSubmit(candidate) {
 
         this.props.addCandidate(candidate);
         // TODO: Temporary
         this.setState({
-            newCandidateModal: false
+            newCandidateModalOpen: false
         });
-    },
+    }
 
     renderModal() {
         return (
             <NewCandidateModal
+                fetchAssessments={this.props.fetchAssessments}
                 assessments={this.props.assessments}
-                onSubmit={this.handleSubmit}
+                onSubmit={this.handleSubmit.bind(this)}
             >
                 +New
             </NewCandidateModal>
         );
-    },
+    }
 
     render() {
         if (this.props.fetchingCandidates) {
@@ -95,7 +103,7 @@ class DashboardView extends Component {
             <div className='submission-container'>
                 {this.renderHeader()}
                 {this.renderTable()}
-                {this.state.newCandidateModal && this.renderModal()}
+                {this.state.newCandidateModalOpen && this.renderModal()}
             </div>
         );
     }

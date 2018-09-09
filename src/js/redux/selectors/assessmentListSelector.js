@@ -8,6 +8,7 @@ const selfSelector = createSelector(
   }
 )
 
-export default const selector = state => ({
+const Selector = state => ({
   assessmentList: selfSelector(state)
 });
+export default Selector;

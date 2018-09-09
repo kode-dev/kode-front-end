@@ -7,7 +7,7 @@ const selfSelector = createSelector(
     return state.candidateList
   }
 )
-
-export default const selector = state => ({
+const Selector = state => ({
   candidateList: selfSelector(state)
 });
+export default Selector;

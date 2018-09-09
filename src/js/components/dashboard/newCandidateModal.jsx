@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 
-import { Modal, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Modal, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 import InputField from 'commonComponents/inputField';
 import LoadingSpinner from 'commonComponents/loadingSpinner';
 import _ from 'lodash';
 
 class NewCandidateModal extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
     componentWillMount() {
         this.props.fetchAssessments();
-    },
+    }
 
     handleSubmit() {
         this.props.onSubmit({
@@ -18,7 +23,7 @@ class NewCandidateModal extends Component {
             email: this.state.email,
             assessment: this.state.selectedAssessment
         });
-    },
+    }
 
     renderAssessment(assessment) {
         return (
@@ -31,7 +36,7 @@ class NewCandidateModal extends Component {
                 {assessment.description}
             </ListGroupItem>
         );
-    },
+    }
 
     renderAssessmentSelector() {
         if (this.props.loadingAssessments) {
@@ -42,10 +47,10 @@ class NewCandidateModal extends Component {
 
         return (
             <ListGroup>
-                {_.map(this.props.assessments.toJS(), this.renderAssessment)}
+                {_.map(this.props.assessments.toJS(), this.renderAssessment.bind(this))}
             </ListGroup>
         );
-    },
+    }
 
     disableSubmission() {
         return !(this.state.firstName && this.state.lastName && this.state.email && this.state.selectedAssessment);
@@ -67,7 +72,7 @@ class NewCandidateModal extends Component {
                                 type='text'
                                 placeholder={'Enter candidate\'s first name'}
                                 value={this.state.firstName}
-                                onChange{(e) => this.setState({firstName: e.target.value})}
+                                onChange={(e) => this.setState({firstName: e.target.value})}
                             />
                             <InputField
                                 id='inputLastName'
@@ -75,7 +80,7 @@ class NewCandidateModal extends Component {
                                 type='text'
                                 placeholder={'Enter candidate\'s last name'}
                                 value={this.state.lastName}
-                                onChange{(e) => this.setState({lastName: e.target.value})}
+                                onChange={(e) => this.setState({lastName: e.target.value})}
                             />
                             <InputField
                                 id='inputEmail'
@@ -83,7 +88,7 @@ class NewCandidateModal extends Component {
                                 type='text'
                                 placeholder={'Enter candidate\'s email address'}
                                 value={this.state.email}
-                                onChange{(e) => this.setState({email: e.target.value})}
+                                onChange={(e) => this.setState({email: e.target.value})}
                             />
                             {this.renderAssessmentSelector()}
                         </form>
@@ -95,7 +100,7 @@ class NewCandidateModal extends Component {
                         </Button>
                         <Button 
                             bsStyle='primary'
-                            onClick={this.handleSubmit}
+                            onClick={this.handleSubmit.bind(this)}
                             disabled={this.disableSubmission()}
                         >
                             Submit
