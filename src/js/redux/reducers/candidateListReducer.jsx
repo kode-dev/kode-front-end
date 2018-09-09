@@ -7,7 +7,7 @@ import _ from 'lodash'
 import Immutable, { Map, List } from 'immutable';
 
 export const fetchCandidates = createAsyncAction(
-	Actions.candidate.list.FETCH_ASSESSMENTS,
+	Actions.candidate.list.FETCH_CANDIDATES,
 	() => {
 		return DashboardApi.getCandidateList().then(
 			response => {
@@ -39,25 +39,25 @@ export const addCandidate = createAsyncAction(
 );
 
 export const actions = {
-  fetchCandidates,
-  addCandidate
+    fetchCandidates,
+  	addCandidate
 };
 
 export const reducers = {
-	[Actions.candidate.list.FETCH_ASSESSMENTS]: (state, { payload }) => {
+	[Actions.candidate.list.FETCH_CANDIDATES]: (state, { payload }) => {
 	    return {
 			...state,
 			fetchingCandidates: true
 	    };
 	},
-	[Actions.candidate.list.FETCH_ASSESSMENTS + '_SUCCESS']: (state, { payload }) => {
+	[Actions.candidate.list.FETCH_CANDIDATES + '_SUCCESS']: (state, { payload }) => {
 		return {
 			...state,
 			candidates: payload,
 			fetchingCandidates: false
 	    };
 	},
-	[Actions.candidate.list.FETCH_ASSESSMENTS + '_ERROR']: (state, { payload }) => {
+	[Actions.candidate.list.FETCH_CANDIDATES + '_ERROR']: (state, { payload }) => {
 		return {
 			...state,
 			candidates: Immutable.fromJS(payload),

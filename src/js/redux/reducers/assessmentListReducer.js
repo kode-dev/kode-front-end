@@ -23,7 +23,7 @@ export const fetchAssessments = createAsyncAction(
 );
 
 export const actions = {
-  fetchAssessments
+  	fetchAssessments
 };
 
 export const reducers = {

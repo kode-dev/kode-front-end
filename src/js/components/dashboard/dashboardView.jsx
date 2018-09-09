@@ -96,7 +96,7 @@ class DashboardView extends Component {
     handleSubmit(candidate) {
 
         this.props.addCandidate(candidate);
-        // TODO: Temporary
+        // TODO: Temporary. Rely on callback
         this.setState({
             newCandidateModalOpen: false
         });
