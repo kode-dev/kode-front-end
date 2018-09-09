@@ -4,6 +4,7 @@ import { Table, Button } from 'react-bootstrap';
 import _ from 'lodash';
 import NewCandidateModal from './newCandidateModal';
 import LoadingSpinner from 'commonComponents/loadingSpinner';
+import InputField from 'commonComponents/inputField';
 
 class DashboardView extends Component {
 
@@ -35,22 +36,42 @@ class DashboardView extends Component {
             );
         }
 
+        let candidates = this.props.candidates;
+        if (this.state.filter && this.state.filter.trim()) {
+            candidates = candidates.filter((candidate) => 
+                _.includes(candidate.get('firstName'), this.state.filter) ||
+                _.includes(candidate.get('lastName'), this.state.filter) ||
+                _.includes(candidate.get('email'), this.state.filter)
+            );
+        }
+
         return (
-            <Table 
-                responsive 
-                condensed
-            >
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Email Address</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {_.map(this.props.candidates.toJS(), this.renderRow)}
-                </tbody>
-            </Table>
+            <div className='submission-container'>
+                <form>
+                    <InputField
+                        id='filterCandidates'
+                        type='text'
+                        placeholder={'Filter Candidates'}
+                        value={this.state.filter}
+                        onChange={(e) => this.setState({filter: e.target.value})}
+                    />
+                </form>
+                <Table 
+                    responsive 
+                    condensed
+                >
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email Address</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {_.map(candidates.toJS(), this.renderRow)}
+                    </tbody>
+                </Table>
+            </div>
         );
     }
 
