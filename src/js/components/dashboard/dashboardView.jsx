@@ -7,6 +7,10 @@ import LoadingSpinner from 'commonComponents/loadingSpinner';
 
 class DashboardView extends Component {
 
+    componentWillMount() {
+        this.props.fetchCandidates();
+    },
+
     renderRow(candidate) {
         return (
             <tr>
