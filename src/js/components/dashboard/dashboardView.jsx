@@ -14,35 +14,35 @@ class DashboardView extends Component {
     }
 
     componentWillMount() {
-        this.props.fetchCandidates();
+        this.props.fetchAppointments();
     }
 
-    renderRow(candidate) {
+    renderRow(appointment) {
         return (
             <tr>
-                <td>{`${candidate.lastName}, ${candidate.firstName}`}</td>
-                <td>{candidate.email}</td>
-                <td>{candidate.status}</td>
+                <td>{`${appointment.lastName}, ${appointment.firstName}`}</td>
+                <td>{appointment.email}</td>
+                <td>{appointment.status}</td>
             </tr>
         );
     }
 
     renderTable() {
-        let candidates = this.props.candidates;
+        let appointments = this.props.appointments;
         let contents;
 
-        if (!candidates || candidates.isEmpty()) {
+        if (!appointments || appointments.isEmpty()) {
             contents = (
-                <div className='no-candidate-splash'>
+                <div className='no-appointment-splash'>
                     No Data
                 </div>
             );
         } else {
-            if (candidates && this.state.filter && this.state.filter.trim()) {
-                candidates = candidates.filter((candidate) => 
-                    _.includes(candidate.get('firstName'), this.state.filter) ||
-                    _.includes(candidate.get('lastName'), this.state.filter) ||
-                    _.includes(candidate.get('email'), this.state.filter)
+            if (appointments && this.state.filter && this.state.filter.trim()) {
+                appointments = appointments.filter((appointment) => 
+                    _.includes(appointment.get('firstName'), this.state.filter) ||
+                    _.includes(appointment.get('lastName'), this.state.filter) ||
+                    _.includes(appointment.get('email'), this.state.filter)
                 );
             }
 
@@ -59,7 +59,7 @@ class DashboardView extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {_.map(candidates.toJS(), this.renderRow)}
+                        {_.map(appointments.toJS(), this.renderRow)}
                     </tbody>
                 </Table>
             );
@@ -68,9 +68,9 @@ class DashboardView extends Component {
             <div className='submission-container'>
                 <form>
                     <InputField
-                        id='filterCandidates'
+                        id='filterAppointments'
                         type='text'
-                        placeholder={'Filter Candidates'}
+                        placeholder={'Filter Screens'}
                         value={this.state.filter}
                         onChange={(e) => this.setState({filter: e.target.value})}
                     />
@@ -93,16 +93,15 @@ class DashboardView extends Component {
 
     handleNew() {
         this.setState({
-            newCandidateModalOpen: true
+            newAppointmentModalOpen: true
         });
     }
 
-    handleSubmit(candidate) {
-
-        this.props.addCandidate(candidate);
-        // TODO: Temporary. Rely on callback
-        this.setState({
-            newCandidateModalOpen: false
+    handleSubmit(appointment) {
+        this.props.addAppointment(appointment, (response) => {
+            this.setState({
+                newAppointmentModalOpen: false
+            });
         });
     }
 
@@ -112,6 +111,7 @@ class DashboardView extends Component {
                 fetchAssessments={this.props.fetchAssessments}
                 assessments={this.props.assessments}
                 onSubmit={this.handleSubmit.bind(this)}
+                addingAppointment={this.props.addingAppointment}
             >
                 +New
             </NewCandidateModal>
@@ -119,7 +119,7 @@ class DashboardView extends Component {
     }
 
     render() {
-        if (this.props.fetchingCandidates) {
+        if (this.props.fetchingAppointments) {
             return (
                 <LoadingSpinner />
             );
@@ -129,7 +129,7 @@ class DashboardView extends Component {
             <div className='submission-container'>
                 {this.renderHeader()}
                 {this.renderTable()}
-                {this.state.newCandidateModalOpen && this.renderModal()}
+                {this.state.newAppointmentModalOpen && this.renderModal()}
             </div>
         );
     }

@@ -39,7 +39,7 @@ class NewCandidateModal extends Component {
     }
 
     renderAssessmentSelector() {
-        if (this.props.loadingAssessments) {
+        if (this.props.loadingAssessments || this.props.addingAppointment) {
             return (
                 <LoadingSpinner />
             );

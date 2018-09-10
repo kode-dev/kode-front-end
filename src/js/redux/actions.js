@@ -1,8 +1,8 @@
 const actions = {
-	candidate: {
+	Appointment: {
 		list: {
-			FETCH_CANDIDATES: 'GET_CANDIDATES',
-			ADD_CANDIDATE: 'ADD_CANDIDATE'
+			FETCH_APPOINTMENTS: 'GET_APPOINTMENTS',
+			ADD_APPOINTMENT: 'ADD_APPOINTMENT'
 		},
 		detail: {}
 	},
