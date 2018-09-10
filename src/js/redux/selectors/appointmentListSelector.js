@@ -4,10 +4,9 @@ import { createSelector } from 'reselect';
 const selfSelector = createSelector(
   state => state.appointmentList,
   state => {
-    return state.appointmentList
+  	return state
   }
 )
-const Selector = state => ({
-  appointmentList: selfSelector(state)
-});
+const Selector = state => (selfSelector(state));
+
 export default Selector;

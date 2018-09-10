@@ -29,32 +29,6 @@ class DashboardViewWrapper extends Component {
             <div>
                 <Navbar {...this.props} />
                 <DashboardView className='dashboard-container' {...this.props} 
-                    assessments={Immutable.fromJS([
-                        {
-                            id: 'abcAssessment',
-                            label: 'ABC Assessment',
-                            description: 'This is to assess you.',
-                            repoUrl: 'github.com',
-                        },
-                        {
-                                id: 'abcAssessment2',
-                                label: 'ABC Assessment 2',
-                                description: 'This is to assess you.',
-                                repoUrl: 'github.com',
-                        }
-                    ])}
-                    appointments={Immutable.fromJS([
-                        {
-                            firstName: "Karth",
-                            lastName: "ICKKKKK",
-                            email: "abc@pooppp.com"
-                        },
-                        {
-                            firstName: "Nguyen",
-                            lastName: "Jin",
-                            email: "abc@poop.com"
-                        }
-                    ])}
                 />
             </div>
         )

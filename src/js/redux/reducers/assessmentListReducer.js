@@ -36,7 +36,7 @@ export const reducers = {
 	[Actions.assessment.list.FETCH_ASSESSMENTS + '_SUCCESS']: (state, { payload }) => {
 		return {
 			...state,
-			assessments: payload,
+			assessments: Immutable.fromJS(payload),
 			fetchingAssessments: false
 	    };
 	},

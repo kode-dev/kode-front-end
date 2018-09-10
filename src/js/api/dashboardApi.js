@@ -19,6 +19,9 @@ class DashboardApi {
 
     static addAppointment(appointment) {
         const request = new Request(getBaseUrl() + `appointments`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(appointment)

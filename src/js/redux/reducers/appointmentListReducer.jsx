@@ -7,7 +7,7 @@ import _ from 'lodash'
 import Immutable, { Map, List } from 'immutable';
 
 export const fetchAppointments = createAsyncAction(
-	Actions.Appointment.list.FETCH_APPOINTMENT,
+	Actions.Appointment.list.FETCH_APPOINTMENTS,
 	() => {
 		return DashboardApi.getAppointmentList().then(
 			response => {
@@ -24,14 +24,12 @@ export const fetchAppointments = createAsyncAction(
 
 export const addAppointment = createAsyncAction(
 	Actions.Appointment.list.ADD_APPOINTMENT,
-	(newAppointment, callback) => {
+	(newAppointment) => {
 		return DashboardApi.addAppointment(newAppointment).then(
 			response => {
 				if (response.error) {
-					callback(null)
 					return null;
 				}
-				callback(response)
 				return response;
 			}, error => {
 				throw error;
@@ -40,10 +38,14 @@ export const addAppointment = createAsyncAction(
 	}
 );
 
-export const setNewAppointmentModalOpen(Actions.Appointment)
+export const setNewAppointmentModalOpen = createAction(
+	Actions.Appointment.list.SET_MODAL_VISIBILITY,
+	(isVisible) => (isVisible)
+);
 
 export const actions = {
     fetchAppointments,
+    setNewAppointmentModalOpen,
   	addAppointment
 };
 
@@ -57,14 +59,14 @@ export const reducers = {
 	[Actions.Appointment.list.FETCH_APPOINTMENTS + '_SUCCESS']: (state, { payload }) => {
 		return {
 			...state,
-			Appointments: payload,
+			appointments: Immutable.fromJS(payload),
 			fetchingAppointments: false
 	    };
 	},
 	[Actions.Appointment.list.FETCH_APPOINTMENTS + '_ERROR']: (state, { payload }) => {
 		return {
 			...state,
-			Appointments: Immutable.fromJS(payload),
+			appointments: Immutable.fromJS(payload),
 			fetchingAppointments: false
 	    };
 	},
@@ -77,24 +79,36 @@ export const reducers = {
 	[Actions.Appointment.list.ADD_APPOINTMENT + '_SUCCESS']: (state, { payload }) => {
 		return {
 			...state,
-			Appointments: state.Appointments.unshift(payload),
-			addingAppointment: false
+			appointments: state.appointments.unshift(payload),
+			addAppointmentError: false,
+			addingAppointment: false,
+			isModalVisible: false,
 	    }
 	},
 	[Actions.Appointment.list.ADD_APPOINTMENT + '_ERROR']: (state, { payload }) => {
 		return {
 			...state,
-			addAppointmentError: true
+			addAppointmentError: true,
 			addingAppointment: false
+		}
+	},
+	[Actions.Appointment.list.SET_MODAL_VISIBILITY]: (state, { payload }) => {
+		return {
+			...state,
+			isModalVisible: payload
 		}
 	}
 };
 
 export const initialState = {
-	Appointments: new List(),
+	appointments: new List(),
 	fetchingAppointments: false,
+
 	addingAppointment: false,
-	addAppointmentError: false
+	addAppointmentError: false,
+
+	isModalVisible: false,
+	addAppointmentError: false,
 };
 
 export default handleActions(reducers, initialState);

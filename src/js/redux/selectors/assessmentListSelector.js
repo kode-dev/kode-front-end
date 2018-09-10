@@ -4,11 +4,9 @@ import { createSelector } from 'reselect';
 const selfSelector = createSelector(
   state => state.assessmentList,
   state => {
-    return state.assessmentList
+    return state
   }
 )
 
-const Selector = state => ({
-  assessmentList: selfSelector(state)
-});
+const Selector = state => (selfSelector(state))
 export default Selector;

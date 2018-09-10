@@ -20,8 +20,8 @@ class DashboardView extends Component {
     renderRow(appointment) {
         return (
             <tr>
-                <td>{`${appointment.lastName}, ${appointment.firstName}`}</td>
-                <td>{appointment.email}</td>
+                <td>{`${appointment.candidate.lastName}, ${appointment.candidate.firstName}`}</td>
+                <td>{appointment.candidate.email}</td>
                 <td>{appointment.status}</td>
             </tr>
         );
@@ -29,6 +29,7 @@ class DashboardView extends Component {
 
     renderTable() {
         let appointments = this.props.appointments;
+
         let contents;
 
         if (!appointments || appointments.isEmpty()) {
@@ -84,25 +85,11 @@ class DashboardView extends Component {
         return (
             <Button
                 bsStyle='success'
-                onClick={this.handleNew.bind(this)}
+                onClick={() => this.props.setNewAppointmentModalOpen(true)}
             >
                 +New
             </Button>
         );
-    }
-
-    handleNew() {
-        this.setState({
-            newAppointmentModalOpen: true
-        });
-    }
-
-    handleSubmit(appointment) {
-        this.props.addAppointment(appointment, (response) => {
-            this.setState({
-                newAppointmentModalOpen: false
-            });
-        });
     }
 
     renderModal() {
@@ -110,8 +97,10 @@ class DashboardView extends Component {
             <NewCandidateModal
                 fetchAssessments={this.props.fetchAssessments}
                 assessments={this.props.assessments}
-                onSubmit={this.handleSubmit.bind(this)}
+                addAppointment={this.props.addAppointment}
                 addingAppointment={this.props.addingAppointment}
+                addAppointmentError={this.props.addAppointmentError}
+                setNewAppointmentModalOpen={this.props.setNewAppointmentModalOpen}
             >
                 +New
             </NewCandidateModal>
@@ -129,7 +118,7 @@ class DashboardView extends Component {
             <div className='submission-container'>
                 {this.renderHeader()}
                 {this.renderTable()}
-                {this.state.newAppointmentModalOpen && this.renderModal()}
+                {this.props.isModalVisible && this.renderModal()}
             </div>
         );
     }
