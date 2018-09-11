@@ -100,6 +100,7 @@ class DashboardView extends Component {
                 addAppointment={this.props.addAppointment}
                 addingAppointment={this.props.addingAppointment}
                 addAppointmentError={this.props.addAppointmentError}
+                addAppointmentSuccess={this.props.addAppointmentSuccess}
                 setNewAppointmentModalOpen={this.props.setNewAppointmentModalOpen}
             >
                 +New

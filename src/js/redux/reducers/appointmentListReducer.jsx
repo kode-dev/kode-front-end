@@ -81,21 +81,26 @@ export const reducers = {
 			...state,
 			appointments: state.appointments.unshift(payload),
 			addAppointmentError: false,
+			addAppointmentSuccess: true,
 			addingAppointment: false,
-			isModalVisible: false,
 	    }
 	},
 	[Actions.Appointment.list.ADD_APPOINTMENT + '_ERROR']: (state, { payload }) => {
 		return {
 			...state,
 			addAppointmentError: true,
+			addAppointmentSuccess: false,
 			addingAppointment: false
 		}
 	},
 	[Actions.Appointment.list.SET_MODAL_VISIBILITY]: (state, { payload }) => {
+		// reset all modal related state:
 		return {
 			...state,
-			isModalVisible: payload
+			isModalVisible: payload,
+			addAppointmentError: false,
+			addAppointmentSuccess: false,
+			addingAppointment: false
 		}
 	}
 };
@@ -106,9 +111,8 @@ export const initialState = {
 
 	addingAppointment: false,
 	addAppointmentError: false,
-
 	isModalVisible: false,
-	addAppointmentError: false,
+	addAppointmentSuccess: false
 };
 
 export default handleActions(reducers, initialState);

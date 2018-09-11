@@ -40,8 +40,73 @@ class NewCandidateModal extends Component {
         );
     }
 
+    renderButtons() {
+        if (this.props.addAppointmentSuccess) {
+            return (
+                <Button onClick={() => this.props.setNewAppointmentModalOpen(false)}>
+                    Done
+                </Button>
+            )
+        }
+
+        return (
+            <div>
+                <Button onClick={() => this.props.setNewAppointmentModalOpen(false)}>
+                    Close
+                </Button>
+                <Button 
+                    bsStyle='primary'
+                    onClick={this.handleSubmit.bind(this)}
+                    disabled={this.disableSubmission()}
+                >
+                    Submit
+                </Button>
+            </div>
+        );
+    }
+
+    renderForm() {
+        if (this.props.addAppointmentSuccess) {
+            return (
+                <div>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis placerat metus eu pretium. Nullam ut ex sapien. Etiam venenatis iaculis fermentum. Donec rutrum lacinia velit, nec efficitur leo elementum et. Ut facilisis non arcu sit amet iaculis. Cras id ipsum neque. 
+                </div>
+            )
+        }
+
+        return (
+            <form>
+                <InputField
+                    id='inputFirstName'
+                    label='First Name'
+                    type='text'
+                    placeholder={'Enter candidate\'s first name'}
+                    value={this.state.firstName}
+                    onChange={(e) => this.setState({firstName: e.target.value})}
+                />
+                <InputField
+                    id='inputLastName'
+                    label='Last Name'
+                    type='text'
+                    placeholder={'Enter candidate\'s last name'}
+                    value={this.state.lastName}
+                    onChange={(e) => this.setState({lastName: e.target.value})}
+                />
+                <InputField
+                    id='inputEmail'
+                    label='Email Address'
+                    type='text'
+                    placeholder={'Enter candidate\'s email address'}
+                    value={this.state.email}
+                    onChange={(e) => this.setState({email: e.target.value})}
+                />
+                {this.renderAssessmentSelector()}
+            </form>
+        )
+    }
+
     renderAssessmentSelector() {
-        if (this.props.loadingAssessments || this.props.addingAppointment) {
+        if (this.props.loadingAssessments) {
             return (
                 <LoadingSpinner />
             );
@@ -58,6 +123,7 @@ class NewCandidateModal extends Component {
     }
 
     render() {
+        if (this.props.addingAppointment) return (<LoadingSpinner />)
         return (
             <div className='static-modal'>
                 <Modal.Dialog>
@@ -66,46 +132,12 @@ class NewCandidateModal extends Component {
                     </Modal.Header>
 
                     <Modal.Body>
-                        <form>
-                            <InputField
-                                id='inputFirstName'
-                                label='First Name'
-                                type='text'
-                                placeholder={'Enter candidate\'s first name'}
-                                value={this.state.firstName}
-                                onChange={(e) => this.setState({firstName: e.target.value})}
-                            />
-                            <InputField
-                                id='inputLastName'
-                                label='Last Name'
-                                type='text'
-                                placeholder={'Enter candidate\'s last name'}
-                                value={this.state.lastName}
-                                onChange={(e) => this.setState({lastName: e.target.value})}
-                            />
-                            <InputField
-                                id='inputEmail'
-                                label='Email Address'
-                                type='text'
-                                placeholder={'Enter candidate\'s email address'}
-                                value={this.state.email}
-                                onChange={(e) => this.setState({email: e.target.value})}
-                            />
-                            {this.renderAssessmentSelector()}
-                        </form>
+                        {this.props.addAppointmentError ? (<p className='error'>There was an error creating an appointment. Please try again.</p>) : ''}
+                        {this.renderForm()}
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button>
-                            Close
-                        </Button>
-                        <Button 
-                            bsStyle='primary'
-                            onClick={this.handleSubmit.bind(this)}
-                            disabled={this.disableSubmission()}
-                        >
-                            Submit
-                        </Button>
+                        {this.renderButtons()}
                     </Modal.Footer>
                 </Modal.Dialog>
             </div>
