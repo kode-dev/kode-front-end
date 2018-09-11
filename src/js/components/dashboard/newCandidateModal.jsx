@@ -17,11 +17,13 @@ class NewCandidateModal extends Component {
     }
 
     handleSubmit() {
-        this.props.onSubmit({
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            email: this.state.email,
-            assessment: this.state.selectedAssessment
+        this.props.addAppointment({
+            candidate: {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                email: this.state.email
+            },
+            assessmentId: this.state.selectedAssessment
         });
     }
 
@@ -30,8 +32,8 @@ class NewCandidateModal extends Component {
             <ListGroupItem 
                 header={assessment.label}
                 href='#'
-                onClick={() => this.setState({ selectedAssessment: assessment.id })}
-                active={assessment.id === this.state.selectedAssessment}
+                onClick={() => this.setState({ selectedAssessment: assessment.key })}
+                active={assessment.key === this.state.selectedAssessment}
             >
                 {assessment.description}
             </ListGroupItem>
@@ -39,12 +41,11 @@ class NewCandidateModal extends Component {
     }
 
     renderAssessmentSelector() {
-        if (this.props.loadingAssessments) {
+        if (this.props.loadingAssessments || this.props.addingAppointment) {
             return (
                 <LoadingSpinner />
             );
         }
-
         return (
             <ListGroup>
                 {_.map(this.props.assessments.toJS(), this.renderAssessment.bind(this))}

@@ -14,35 +14,36 @@ class DashboardView extends Component {
     }
 
     componentWillMount() {
-        this.props.fetchCandidates();
+        this.props.fetchAppointments();
     }
 
-    renderRow(candidate) {
+    renderRow(appointment) {
         return (
             <tr>
-                <td>{`${candidate.lastName}, ${candidate.firstName}`}</td>
-                <td>{candidate.email}</td>
-                <td>{candidate.status}</td>
+                <td>{`${appointment.candidate.lastName}, ${appointment.candidate.firstName}`}</td>
+                <td>{appointment.candidate.email}</td>
+                <td>{appointment.status}</td>
             </tr>
         );
     }
 
     renderTable() {
-        let candidates = this.props.candidates;
+        let appointments = this.props.appointments;
+
         let contents;
 
-        if (!candidates || candidates.isEmpty()) {
+        if (!appointments || appointments.isEmpty()) {
             contents = (
-                <div className='no-candidate-splash'>
+                <div className='no-appointment-splash'>
                     No Data
                 </div>
             );
         } else {
-            if (candidates && this.state.filter && this.state.filter.trim()) {
-                candidates = candidates.filter((candidate) => 
-                    _.includes(candidate.get('firstName'), this.state.filter) ||
-                    _.includes(candidate.get('lastName'), this.state.filter) ||
-                    _.includes(candidate.get('email'), this.state.filter)
+            if (appointments && this.state.filter && this.state.filter.trim()) {
+                appointments = appointments.filter((appointment) => 
+                    _.includes(appointment.get('firstName'), this.state.filter) ||
+                    _.includes(appointment.get('lastName'), this.state.filter) ||
+                    _.includes(appointment.get('email'), this.state.filter)
                 );
             }
 
@@ -59,7 +60,7 @@ class DashboardView extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {_.map(candidates.toJS(), this.renderRow)}
+                        {_.map(appointments.toJS(), this.renderRow)}
                     </tbody>
                 </Table>
             );
@@ -68,9 +69,9 @@ class DashboardView extends Component {
             <div className='submission-container'>
                 <form>
                     <InputField
-                        id='filterCandidates'
+                        id='filterAppointments'
                         type='text'
-                        placeholder={'Filter Candidates'}
+                        placeholder={'Filter Screens'}
                         value={this.state.filter}
                         onChange={(e) => this.setState({filter: e.target.value})}
                     />
@@ -84,26 +85,11 @@ class DashboardView extends Component {
         return (
             <Button
                 bsStyle='success'
-                onClick={this.handleNew.bind(this)}
+                onClick={() => this.props.setNewAppointmentModalOpen(true)}
             >
                 +New
             </Button>
         );
-    }
-
-    handleNew() {
-        this.setState({
-            newCandidateModalOpen: true
-        });
-    }
-
-    handleSubmit(candidate) {
-
-        this.props.addCandidate(candidate);
-        // TODO: Temporary. Rely on callback
-        this.setState({
-            newCandidateModalOpen: false
-        });
     }
 
     renderModal() {
@@ -111,7 +97,10 @@ class DashboardView extends Component {
             <NewCandidateModal
                 fetchAssessments={this.props.fetchAssessments}
                 assessments={this.props.assessments}
-                onSubmit={this.handleSubmit.bind(this)}
+                addAppointment={this.props.addAppointment}
+                addingAppointment={this.props.addingAppointment}
+                addAppointmentError={this.props.addAppointmentError}
+                setNewAppointmentModalOpen={this.props.setNewAppointmentModalOpen}
             >
                 +New
             </NewCandidateModal>
@@ -119,7 +108,7 @@ class DashboardView extends Component {
     }
 
     render() {
-        if (this.props.fetchingCandidates) {
+        if (this.props.fetchingAppointments) {
             return (
                 <LoadingSpinner />
             );
@@ -129,7 +118,7 @@ class DashboardView extends Component {
             <div className='submission-container'>
                 {this.renderHeader()}
                 {this.renderTable()}
-                {this.state.newCandidateModalOpen && this.renderModal()}
+                {this.props.isModalVisible && this.renderModal()}
             </div>
         );
     }

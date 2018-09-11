@@ -2,12 +2,11 @@ import { createSelector } from 'reselect';
 // READ: https://github.com/reactjs/reselect
 
 const selfSelector = createSelector(
-  state => state.candidateList,
+  state => state.appointmentList,
   state => {
-    return state.candidateList
+  	return state
   }
 )
-const Selector = state => ({
-  candidateList: selfSelector(state)
-});
+const Selector = state => (selfSelector(state));
+
 export default Selector;
